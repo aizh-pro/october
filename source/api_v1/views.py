@@ -34,4 +34,36 @@ def add_view(request, *args, **kwargs):
     if request.method == 'POST':
         return JsonResponse(answer)
 
+def subtract_view(request, *args, **kwargs):
+    data = json.loads(request.body)
+    a = data['A']
+    b = data['B']
+    result = a - b
+    answer = {
+        'answer': result
+    }
+    if request.method == 'POST':
+        return JsonResponse(answer)
 
+def multiply_view(request, *args, **kwargs):
+    data = json.loads(request.body)
+    a = data['A']
+    b = data['B']
+    result = a * b
+    answer = {
+        'answer': result
+    }
+    if request.method == 'POST':
+        return JsonResponse(answer)
+
+
+def divide_view(request, *args, **kwargs):
+    data = json.loads(request.body)
+    a = data['A']
+    b = data['B']
+    result = a / b
+    answer = {
+        'answer': result
+    }
+    if request.method == 'POST':
+        return JsonResponse(answer)
