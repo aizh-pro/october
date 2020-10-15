@@ -2,7 +2,7 @@ from django.shortcuts import render
 
 import json
 from datetime import datetime
-from django.http import HttpResponse, HttpResponseNotAllowed, JsonResponse
+from django.http import HttpResponse, HttpResponseNotAllowed, JsonResponse, HttpResponseNotFound
 from django.views.decorators.csrf import ensure_csrf_cookie
 
 @ensure_csrf_cookie
@@ -24,46 +24,75 @@ def json_echo_view(request, *args, **kwargs):
 
 
 def add_view(request, *args, **kwargs):
-    data = json.loads(request.body)
-    a = data['A']
-    b = data['B']
-    result = a + b
-    answer = {
-        'answer': result
-    }
     if request.method == 'POST':
-        return JsonResponse(answer)
+        try:
+            data = json.loads(request.body)
+            a = data['A']
+            b = data['B']
+            result = int(a) + int(b)
+            answer = {
+                'answer': result
+            }
+            return JsonResponse(answer)
+        except:
+            response = JsonResponse({'error': 'No data provided!'})
+            response.status_code = 400
+            return response
+
 
 def subtract_view(request, *args, **kwargs):
-    data = json.loads(request.body)
-    a = data['A']
-    b = data['B']
-    result = a - b
-    answer = {
-        'answer': result
-    }
     if request.method == 'POST':
-        return JsonResponse(answer)
+        try:
+            data = json.loads(request.body)
+            a = data['A']
+            b = data['B']
+            result = int(a) -int(b)
+            answer = {
+                'answer': result
+            }
+            return JsonResponse(answer)
+        except:
+            response = JsonResponse({'error': 'No data provided!'})
+            response.status_code = 400
+            return response
+
 
 def multiply_view(request, *args, **kwargs):
-    data = json.loads(request.body)
-    a = data['A']
-    b = data['B']
-    result = a * b
-    answer = {
-        'answer': result
-    }
     if request.method == 'POST':
-        return JsonResponse(answer)
+        try:
+            data = json.loads(request.body)
+            a = data['A']
+            b = data['B']
+            result = int(a) * int(b)
+            answer = {
+                'answer': result
+            }
+            return JsonResponse(answer)
+        except:
+            response = JsonResponse({'error': 'No data provided!'})
+            response.status_code = 400
+            return response
 
 
 def divide_view(request, *args, **kwargs):
-    data = json.loads(request.body)
-    a = data['A']
-    b = data['B']
-    result = a / b
-    answer = {
-        'answer': result
-    }
     if request.method == 'POST':
-        return JsonResponse(answer)
+        try:
+            data = json.loads(request.body)
+            a = data['A']
+            b = data['B']
+            result = int(a) / int(b)
+            answer = {
+                'answer': result
+            }
+            return JsonResponse(answer)
+        except:
+            response = JsonResponse({'error': 'No data provided!'})
+            response.status_code = 400
+            return response
+
+
+def main_view(request, *args, **kwargs):
+    if request.method == 'GET':
+        return render(request,'index.html')
+    else:
+        return HttpResponseNotFound
